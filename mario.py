@@ -1,7 +1,5 @@
 """
 Project: Python + Game
-Lead: Bernard Yap
-Team Members: Benjamin Goh, Nazrin Nazarudin, Yun Sion, Luke Leh, Lim Eejoy, Guan Zhou, Tarun, Raja Darshini
 Goal: Clone the original mario game as much as possible!
 
 Credits to justinmeister for all the resources
@@ -17,6 +15,8 @@ pygame.init()
 # create a screen instance/object with 
 # 1000px width and 448px height
 
+screen = pygame.display.set_mode((1000, 448))
+
 # I forgot to mention 'Clock'
 # the 'clock' instance help us to control the FPS
 # see below - clock.tick(60) makes the fps to be 60 
@@ -25,9 +25,12 @@ clock = pygame.time.Clock()
 # import images & animation here
 # Tips: The bricks (floor) is 48px height
 
-<<<<<<< HEAD
-=======
+# background
+bg = pygame.image.load("./static_images/background.png")
 
+# mario
+mario = pygame.image.load("./static_images/mario.png")
+mario_hitbox = mario.get_rect(topleft = (10, 448-48-16))
 
 # goomba
 goomba_alive = True
@@ -35,10 +38,9 @@ goomba_animation_i = 0
 goomba_animation_list = []
 goomba_animation_list.append(pygame.image.load("./animate_images/goomba0.png"))
 goomba_animation_list.append(pygame.image.load("./animate_images/goomba1.png"))
-goomba_hitbox = goomba_animation_list[0].get_rect(topleft = (700, 448-48-32))
+goomba_hitbox = goomba_animation_list[0].get_rect(topleft = (700, 448-48-16))
 goomba_death_ani = pygame.image.load("./static_images/goomba_died.png")
 
->>>>>>> parent of 60151a4 (Revert "Pull suggestions")
 # import sounds here
 
 
@@ -49,11 +51,18 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-<<<<<<< HEAD
-=======
         # get mario events
 
+    # background
+    screen.blit(bg,(0, 0))
 
+    # mario
+    # mario control
+    (x, y) = pygame.mouse.get_pos()
+    (mario_hitbox.x, mario_hitbox.y) = (x, y)
+
+    # mario render
+    screen.blit(mario, mario_hitbox)
 
 
     # goomba
@@ -80,6 +89,5 @@ while True:
         sys.exit()
 
 
->>>>>>> parent of 60151a4 (Revert "Pull suggestions")
     pygame.display.update()
     clock.tick(60) #limit our game to 60 fps no matter what
