@@ -16,9 +16,12 @@ clock = pygame.time.Clock()
 # Tips: The bricks (floor) is 48px height
 
 # background
+bg_x = 0
+bg_y = 0
 bg = pygame.image.load("./static_images/background.png")
 
 # mario
+mario_speed = 25
 mario = pygame.image.load("./static_images/mario.png")
 mario_hitbox = mario.get_rect(topleft = (10, 448-48-32))
 
@@ -38,9 +41,20 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         # get mario events
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_d:
+                if mario_hitbox.x <= 500:
+                    mario_hitbox.x += mario_speed
+                else:
+                    bg_x -= 2
+            if event.key == pygame.K_a:
+                if mario_hitbox.x >= 0 and ((mario_hitbox.x - mario_speed) > 0):
+                    mario_hitbox.x -= mario_speed
+                else: 
+                    mario_hitbox.x = 0
 
     # background
-    screen.blit(bg,(0, 0))
+    screen.blit(bg, (bg_x, bg_y))
 
     # mario
     # mario control
@@ -53,8 +67,8 @@ while True:
 
     # goomba
     # goomba move
-    if goomba_alive == True:
-        goomba_hitbox.x -= 2
+    # if goomba_alive == True:
+    #     goomba_hitbox.x -= 2
 
     # goomba animation
     goomba_animation_i += 0.1
