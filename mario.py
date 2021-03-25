@@ -23,7 +23,7 @@ bg = pygame.image.load("./static_images/background.png")
 # mario
 mario_speed = 25
 mario = pygame.image.load("./static_images/mario.png")
-mario_hitbox = mario.get_rect(topleft = (10, 448-48-32))
+mario_hitbox = mario.get_rect(topleft = (50, 448-48-32))
 
 # goomba
 goomba_alive = True
@@ -43,12 +43,13 @@ while True:
         # get mario events
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
-                if mario_hitbox.x <= 500:
+                if (mario_hitbox.x <= 500) and ((mario_hitbox.x + mario_speed) <= 500):
                     mario_hitbox.x += mario_speed
                 else:
-                    bg_x -= 2
+                    mario_hitbox.x = 500
+                    bg_x -= mario_speed
             if event.key == pygame.K_a:
-                if mario_hitbox.x >= 0 and ((mario_hitbox.x - mario_speed) > 0):
+                if (mario_hitbox.x >= 0) and ((mario_hitbox.x - mario_speed) > 0):
                     mario_hitbox.x -= mario_speed
                 else: 
                     mario_hitbox.x = 0
@@ -58,8 +59,8 @@ while True:
 
     # mario
     # mario control
-    (x, y) = pygame.mouse.get_pos()
-    (mario_hitbox.x, mario_hitbox.y) = (x, y)
+    # (x, y) = pygame.mouse.get_pos()
+    # (mario_hitbox.x, mario_hitbox.y) = (x, y)
 
     # mario render
     screen.blit(mario, mario_hitbox)
