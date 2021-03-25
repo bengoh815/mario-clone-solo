@@ -19,11 +19,16 @@ clock = pygame.time.Clock()
 bg_x = 0
 bg_y = 0
 bg = pygame.image.load("./static_images/background.png")
+ground = 448-48
+
+# gravity
+gravity = 2
 
 # mario
+mario_jumping = False
 mario_speed = 25
 mario = pygame.image.load("./static_images/mario.png")
-mario_hitbox = mario.get_rect(topleft = (50, 448-48-32))
+mario_hitbox = mario.get_rect(topleft = (50, ground - 32))
 
 # goomba
 goomba_alive = True
@@ -31,7 +36,7 @@ goomba_animation_i = 0
 goomba_animation_list = []
 goomba_animation_list.append(pygame.image.load("./animate_images/goomba0.png"))
 goomba_animation_list.append(pygame.image.load("./animate_images/goomba1.png"))
-goomba_hitbox = goomba_animation_list[0].get_rect(topleft = (700, 448-48-32))
+goomba_hitbox = goomba_animation_list[0].get_rect(topleft = (700, ground - 32))
 goomba_death_ani = pygame.image.load("./static_images/goomba_died.png")
 
 # import fonts here
@@ -53,6 +58,8 @@ while True:
                     mario_hitbox.x -= mario_speed
                 else: 
                     mario_hitbox.x = 0
+            if event.key == pygame.K_w:
+                
 
     # background
     screen.blit(bg, (bg_x, bg_y))
