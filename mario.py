@@ -59,7 +59,7 @@ while True:
                 else: 
                     mario_hitbox.x = 0
             if event.key == pygame.K_w:
-                
+                mario_hitbox.y -= 2
 
     # background
     screen.blit(bg, (bg_x, bg_y))
