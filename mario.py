@@ -21,11 +21,11 @@ bg_y = 0
 bg = pygame.image.load("./static_images/background.png")
 ground = 448-48
 
-# gravity
-gravity = 2
 
 # mario
 mario_jumping = False
+mario_jump_list = [5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5]
+mario_jump_list_i = 0
 mario_speed = 25
 mario = pygame.image.load("./static_images/mario.png")
 mario_hitbox = mario.get_rect(topleft = (50, ground - 32))
@@ -59,12 +59,21 @@ while True:
                 else: 
                     mario_hitbox.x = 0
             if event.key == pygame.K_w:
-                mario_hitbox.y -= 2
+                if mario_jumping == False:
+                    mario_jumping = True
+
 
     # background
     screen.blit(bg, (bg_x, bg_y))
 
     # mario
+    # mario jump
+    if mario_jumping == True:
+        mario_hitbox.y -= mario_jump_list[mario_jump_list_i]
+        mario_jump_list_i += 1
+    if mario_jump_list_i >= len(mario_jump_list):
+        mario_jump_list_i = 0
+        mario_jumping = False
     # mario control
     # (x, y) = pygame.mouse.get_pos()
     # (mario_hitbox.x, mario_hitbox.y) = (x, y)
