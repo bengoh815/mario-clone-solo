@@ -32,7 +32,7 @@ mario_jumping = False
 mario_jump_height = 4
 mario_jump_height_max = 164
 mario_jump_variable = 0
-mario_speed = 5
+mario_speed = 50
 mario = pygame.image.load("./static_images/mario.png")
 mario_hitbox = mario.get_rect(topleft = (50, ground - mario_height))
 
@@ -58,7 +58,9 @@ while True:
                     mario_hitbox.x += mario_speed
                 else:
                     mario_hitbox.x = 500
+                    # universal object speed deduction
                     bg_x -= mario_speed
+                    goomba_hitbox.x -= mario_speed
             if event.key == pygame.K_a:
                 if (mario_hitbox.x >= 0) and ((mario_hitbox.x - mario_speed) > 0):
                     mario_hitbox.x -= mario_speed
