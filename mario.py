@@ -33,6 +33,7 @@ mario_jump_variable = 0
 mario_speed = 50
 mario = pygame.image.load("./static_images/mario.png")
 mario_hitbox = mario.get_rect(topleft = (50, ground - mario_height))
+mario_jump_animation = pygame.image.load("./static_images/mario_jump.png")
 
 # goomba
 goomba_alive = True
@@ -80,6 +81,12 @@ while True:
     # brick
     screen.blit(brick, brick_hitbox)
 
+    # mario render
+    if mario_on_the_ground == False:
+        screen.blit(mario_jump_animation, (mario_hitbox.x - 4, mario_hitbox.y))
+    else:
+        screen.blit(mario, mario_hitbox)
+
     # mario
     # mario jump
     if (mario_on_the_ground == False) and (mario_jump_variable > 0):
@@ -92,13 +99,10 @@ while True:
         mario_on_the_ground = True
 
 
-
     # mario control
     # (x, y) = pygame.mouse.get_pos()
     # (mario_hitbox.x, mario_hitbox.y) = (x, y)
 
-    # mario render
-    screen.blit(mario, mario_hitbox)
 
 
     # goomba
