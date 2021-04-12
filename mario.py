@@ -104,13 +104,6 @@ while True:
     else:
         mario_on_the_ground = True
 
-
-    # mario control
-    # (x, y) = pygame.mouse.get_pos()
-    # (mario_hitbox.x, mario_hitbox.y) = (x, y)
-
-
-
     # goomba
     # goomba move
     # if goomba_alive == True:
