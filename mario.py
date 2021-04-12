@@ -79,20 +79,6 @@ while True:
         else: 
             mario_hitbox.x = 0
 
-
-    # background
-    screen.blit(bg, (bg_x, bg_y))
-
-    # brick render
-    if brick_destroyed == False:
-        screen.blit(brick, brick_hitbox)
-
-    # mario render
-    if mario_on_the_ground == False:
-        screen.blit(mario_jump_animation, (mario_hitbox.x - 4, mario_hitbox.y))
-    else:
-        screen.blit(mario, mario_hitbox)
-
     # mario
     # mario jump
     if (mario_on_the_ground == False) and (mario_jump_variable > 0):
@@ -109,6 +95,26 @@ while True:
     # if goomba_alive == True:
     #     goomba_hitbox.x -= 2
 
+    # check collsion
+    if (mario_hitbox.collidepoint((goomba_hitbox.x + 4, goomba_hitbox.y - 1)) or mario_hitbox.collidepoint((goomba_hitbox.x + goomba_hitbox.width - 4, goomba_hitbox.y - 1)) or mario_hitbox.collidepoint(goomba_hitbox.x + (int(goomba_hitbox.width / 2)), goomba_hitbox.y - 1)) == True:
+        goomba_alive = False
+    elif (mario_hitbox.colliderect(goomba_hitbox) and goomba_alive) == True:
+        print("Game over!", goomba_animation_i)
+        sys.exit()
+
+    # background
+    screen.blit(bg, (bg_x, bg_y))
+
+    # brick render
+    if brick_destroyed == False:
+        screen.blit(brick, brick_hitbox)
+
+    # mario render
+    if mario_on_the_ground == False:
+        screen.blit(mario_jump_animation, (mario_hitbox.x - 4, mario_hitbox.y))
+    else:
+        screen.blit(mario, mario_hitbox)
+
     # goomba animation
     goomba_animation_i += 0.1
     if goomba_animation_i >= 2:
@@ -119,13 +125,6 @@ while True:
         screen.blit(goomba_animation_list[int(goomba_animation_i)], goomba_hitbox)
     else:
         screen.blit(goomba_death_ani, (goomba_hitbox.x, (goomba_hitbox.y + int(goomba_hitbox.height / 2))))
-
-    # check collsion
-    if (mario_hitbox.collidepoint((goomba_hitbox.x + 4, goomba_hitbox.y - 1)) or mario_hitbox.collidepoint((goomba_hitbox.x + goomba_hitbox.width - 4, goomba_hitbox.y - 1)) or mario_hitbox.collidepoint(goomba_hitbox.x + (int(goomba_hitbox.width / 2)), goomba_hitbox.y - 1)) == True:
-        goomba_alive = False
-    elif (mario_hitbox.colliderect(goomba_hitbox) and goomba_alive) == True:
-        print("Game over!", goomba_animation_i)
-        sys.exit()
 
     pygame.display.update()
     clock.tick(60) #limit our game to 60 fps no matter what
