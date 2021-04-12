@@ -27,6 +27,7 @@ gravity = 4
 # mario
 mario_height = 32
 mario_jumping = False
+mario_on_the_ground = True
 # mario_jump_list = [5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5]
 # mario_jump_list_i = 0
 mario_jump_height = 4
@@ -45,6 +46,10 @@ goomba_animation_list.append(pygame.image.load("./animate_images/goomba1.png"))
 goomba_hitbox = goomba_animation_list[0].get_rect(topleft = (700, ground - 32))
 goomba_death_ani = pygame.image.load("./static_images/goomba_died.png")
 
+# brick
+brick = pygame.image.load("./static_images/brick.png")
+brick_hitbox = brick.get_rect(topleft = (672, ground - 128))
+
 # import fonts here
 
 while True:
@@ -61,19 +66,25 @@ while True:
                     # universal object speed deduction
                     bg_x -= mario_speed
                     goomba_hitbox.x -= mario_speed
+                    brick_hitbox.x -= mario_speed
             if event.key == pygame.K_a:
                 if (mario_hitbox.x >= 0) and ((mario_hitbox.x - mario_speed) > 0):
                     mario_hitbox.x -= mario_speed
                 else: 
                     mario_hitbox.x = 0
             if event.key == pygame.K_w:
-                if mario_jumping == False:
-                    mario_jumping = True
-                    mario_jump_variable = mario_jump_height_max
+                if mario_on_the_ground == True:
+                    mario_on_the_ground = False
+                # if mario_jumping == False:
+                #     mario_jumping = True
+                #     mario_jump_variable = mario_jump_height_max
 
 
     # background
     screen.blit(bg, (bg_x, bg_y))
+
+    # brick
+    screen.blit(brick, brick_hitbox)
 
     # mario
     # mario jump
@@ -90,15 +101,15 @@ while True:
     #     mario_jumping = False
 
     # second attempt
-    if mario_jumping == True:
-        mario_hitbox.y -= mario_jump_height
-        mario_jump_variable -= mario_jump_height
-    else:
-        if (mario_hitbox.y < (ground - mario_height)):
-            mario_hitbox.y += gravity
+    # if mario_jumping == True:
+    #     mario_hitbox.y -= mario_jump_height
+    #     mario_jump_variable -= mario_jump_height
+    # else:
+    #     if (mario_hitbox.y < (ground - mario_height)):
+    #         mario_hitbox.y += gravity
 
-    if mario_jump_variable <= 0:
-        mario_jumping = False
+    # if mario_jump_variable <= 0:
+    #     mario_jumping = False
 
     # mario control
     # (x, y) = pygame.mouse.get_pos()
