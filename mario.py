@@ -45,6 +45,7 @@ goomba_hitbox = goomba_animation_list[0].get_rect(topleft = (700, ground - 32))
 goomba_death_ani = pygame.image.load("./static_images/goomba_died.png")
 
 # brick
+brick_destroyed = False
 brick = pygame.image.load("./static_images/brick.png")
 brick_hitbox = brick.get_rect(topleft = (672, ground - 128))
 
@@ -78,8 +79,9 @@ while True:
     # background
     screen.blit(bg, (bg_x, bg_y))
 
-    # brick
-    screen.blit(brick, brick_hitbox)
+    # brick render
+    if brick_destroyed == False:
+        screen.blit(brick, brick_hitbox)
 
     # mario render
     if mario_on_the_ground == False:
@@ -93,7 +95,7 @@ while True:
         mario_hitbox.y -= mario_jump_height
         mario_jump_variable -= mario_jump_height
     # need to create a function to check if that is okay to be
-    elif(mario_hitbox.y < (ground - mario_height)):
+    elif(mario_hitbox.y < (ground - mario_height)) and not (mario_hitbox.colliderect(brick_hitbox)):
         mario_hitbox.y += gravity
     else:
         mario_on_the_ground = True
