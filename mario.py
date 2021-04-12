@@ -75,6 +75,7 @@ while True:
             if event.key == pygame.K_w:
                 if mario_on_the_ground == True:
                     mario_on_the_ground = False
+                    mario_jump_variable = mario_jump_height_max
                 # if mario_jumping == False:
                 #     mario_jumping = True
                 #     mario_jump_variable = mario_jump_height_max
@@ -110,6 +111,18 @@ while True:
 
     # if mario_jump_variable <= 0:
     #     mario_jumping = False
+
+    # third attempt
+    if (mario_on_the_ground == False) and (mario_jump_variable > 0):
+        mario_hitbox.y -= mario_jump_height
+        mario_jump_variable -= mario_jump_height
+    # need to create a function to check if that is okay to be
+    elif(mario_hitbox.y < (ground - mario_height)):
+        mario_hitbox.y += gravity
+    else:
+        mario_on_the_ground = True
+
+
 
     # mario control
     # (x, y) = pygame.mouse.get_pos()
