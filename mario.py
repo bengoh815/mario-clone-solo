@@ -28,6 +28,7 @@ gravity = 4
 mario_height = 32
 mario_facing_right = True
 mario_on_the_ground = True
+mario_jumping = False
 mario_jump_height = 4
 mario_jump_height_max = 164
 mario_jump_variable = 0
@@ -62,6 +63,7 @@ while True:
             if event.key == pygame.K_w:
                 if mario_on_the_ground == True:
                     mario_on_the_ground = False
+                    mario_jumping = True
                     mario_jump_variable = mario_jump_height_max
 
     # get keys held down
@@ -84,17 +86,25 @@ while True:
             mario_hitbox.x = 0
 
     # mario
-    # if mario_hitbox.colliderect(brick_hitbox) == True:
+    if mario_hitbox.colliderect(brick_hitbox) == True and not (mario_hitbox.y < brick_hitbox.y):
+        if mario_on_the_ground == False:
+            mario_hitbox.y += mario_jump_height
+            mario_jumping = False
+        elif mario_facing_right == True:
+            mario_hitbox.x -= mario_speed
+        else:
+            mario_hitbox.x += mario_speed
 
     # mario jump
-    if (mario_on_the_ground == False) and (mario_jump_variable > 0):
+    if (mario_on_the_ground == False) and (mario_jump_variable > 0) and (mario_jumping == True):
         mario_hitbox.y -= mario_jump_height
         mario_jump_variable -= mario_jump_height
     # need to create a function to check if that is okay to be
-    elif(mario_hitbox.y < (ground - mario_height)) and not (mario_hitbox.colliderect(brick_hitbox)):
+    elif (mario_hitbox.y < (ground - mario_height)) and not (mario_hitbox.colliderect(brick_hitbox)) and mario_jumping == False:
         mario_hitbox.y += gravity
     else:
         mario_on_the_ground = True
+        mario_jumping = False
 
     # goomba
     # goomba move
