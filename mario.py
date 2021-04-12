@@ -30,7 +30,7 @@ mario_on_the_ground = True
 mario_jump_height = 4
 mario_jump_height_max = 164
 mario_jump_variable = 0
-mario_speed = 50
+mario_speed = 4
 mario = pygame.image.load("./static_images/mario.png")
 mario_hitbox = mario.get_rect(topleft = (50, ground - mario_height))
 mario_jump_animation = pygame.image.load("./static_images/mario_jump.png")
@@ -57,24 +57,28 @@ while True:
             sys.exit()
         # get mario events
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_d:
-                if (mario_hitbox.x <= 500) and ((mario_hitbox.x + mario_speed) <= 500):
-                    mario_hitbox.x += mario_speed
-                else:
-                    mario_hitbox.x = 500
-                    # universal object speed deduction
-                    bg_x -= mario_speed
-                    goomba_hitbox.x -= mario_speed
-                    brick_hitbox.x -= mario_speed
-            if event.key == pygame.K_a:
-                if (mario_hitbox.x >= 0) and ((mario_hitbox.x - mario_speed) > 0):
-                    mario_hitbox.x -= mario_speed
-                else: 
-                    mario_hitbox.x = 0
             if event.key == pygame.K_w:
                 if mario_on_the_ground == True:
                     mario_on_the_ground = False
                     mario_jump_variable = mario_jump_height_max
+
+    # get keys held down
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_d]:
+        if (mario_hitbox.x <= 500) and ((mario_hitbox.x + mario_speed) <= 500):
+            mario_hitbox.x += mario_speed
+        else:
+            mario_hitbox.x = 500
+            # universal object speed deduction
+            bg_x -= mario_speed
+            goomba_hitbox.x -= mario_speed
+            brick_hitbox.x -= mario_speed
+    if keys[pygame.K_a]:
+        if (mario_hitbox.x >= 0) and ((mario_hitbox.x - mario_speed) > 0):
+            mario_hitbox.x -= mario_speed
+        else: 
+            mario_hitbox.x = 0
+
 
     # background
     screen.blit(bg, (bg_x, bg_y))
