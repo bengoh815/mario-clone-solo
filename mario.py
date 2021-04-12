@@ -26,6 +26,7 @@ gravity = 4
 
 # mario
 mario_height = 32
+mario_facing_right = True
 mario_on_the_ground = True
 mario_jump_height = 4
 mario_jump_height_max = 164
@@ -34,6 +35,7 @@ mario_speed = 4
 mario = pygame.image.load("./static_images/mario.png")
 mario_hitbox = mario.get_rect(topleft = (50, ground - mario_height))
 mario_jump_animation = pygame.image.load("./static_images/mario_jump.png")
+mario_left = pygame.image.load("./static_images/mario_left.png")
 
 # goomba
 goomba_alive = True
@@ -65,6 +67,7 @@ while True:
     # get keys held down
     keys = pygame.key.get_pressed()
     if keys[pygame.K_d]:
+        mario_facing_right = True
         if (mario_hitbox.x <= 500) and ((mario_hitbox.x + mario_speed) <= 500):
             mario_hitbox.x += mario_speed
         else:
@@ -74,12 +77,15 @@ while True:
             goomba_hitbox.x -= mario_speed
             brick_hitbox.x -= mario_speed
     if keys[pygame.K_a]:
+        mario_facing_right = False
         if (mario_hitbox.x >= 0) and ((mario_hitbox.x - mario_speed) > 0):
             mario_hitbox.x -= mario_speed
         else: 
             mario_hitbox.x = 0
 
     # mario
+    # if mario_hitbox.colliderect(brick_hitbox) == True:
+
     # mario jump
     if (mario_on_the_ground == False) and (mario_jump_variable > 0):
         mario_hitbox.y -= mario_jump_height
@@ -112,8 +118,10 @@ while True:
     # mario render
     if mario_on_the_ground == False:
         screen.blit(mario_jump_animation, (mario_hitbox.x - 4, mario_hitbox.y))
-    else:
+    elif mario_facing_right == True:
         screen.blit(mario, mario_hitbox)
+    elif mario_facing_right == False:
+        screen.blit(mario_left, mario_hitbox)
 
     # goomba animation
     goomba_animation_i += 0.1
