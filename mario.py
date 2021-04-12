@@ -26,10 +26,7 @@ gravity = 4
 
 # mario
 mario_height = 32
-mario_jumping = False
 mario_on_the_ground = True
-# mario_jump_list = [5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5]
-# mario_jump_list_i = 0
 mario_jump_height = 4
 mario_jump_height_max = 164
 mario_jump_variable = 0
@@ -76,10 +73,6 @@ while True:
                 if mario_on_the_ground == True:
                     mario_on_the_ground = False
                     mario_jump_variable = mario_jump_height_max
-                # if mario_jumping == False:
-                #     mario_jumping = True
-                #     mario_jump_variable = mario_jump_height_max
-
 
     # background
     screen.blit(bg, (bg_x, bg_y))
@@ -89,30 +82,6 @@ while True:
 
     # mario
     # mario jump
-
-    # needs to jump 32 * (5 + 0.1) = 160 + 3.2
-    # remember to implement gravity so its just mario jumping up and gravity making it pull down
-
-    # first attempt
-    # if mario_jumping == True:
-    #     mario_hitbox.y -= mario_jump_list[mario_jump_list_i]
-    #     mario_jump_list_i += 1
-    # if mario_jump_list_i >= len(mario_jump_list):
-    #     mario_jump_list_i = 0
-    #     mario_jumping = False
-
-    # second attempt
-    # if mario_jumping == True:
-    #     mario_hitbox.y -= mario_jump_height
-    #     mario_jump_variable -= mario_jump_height
-    # else:
-    #     if (mario_hitbox.y < (ground - mario_height)):
-    #         mario_hitbox.y += gravity
-
-    # if mario_jump_variable <= 0:
-    #     mario_jumping = False
-
-    # third attempt
     if (mario_on_the_ground == False) and (mario_jump_variable > 0):
         mario_hitbox.y -= mario_jump_height
         mario_jump_variable -= mario_jump_height
